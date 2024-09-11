@@ -1,0 +1,9 @@
+[33m556f83a[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mProiect3[m[33m, [m[1;31morigin/Proiect3[m[33m)[m HEAD@{0}: reset: moving to 556f83a
+[33m556f83a[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mProiect3[m[33m, [m[1;31morigin/Proiect3[m[33m)[m HEAD@{1}: reset: moving to HEAD
+[33m556f83a[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mProiect3[m[33m, [m[1;31morigin/Proiect3[m[33m)[m HEAD@{2}: commit (merge): Merge main into Proiect3 with unrelated histories
+[33m148d380[m HEAD@{3}: checkout: moving from main to Proiect3
+[33m0d9a1a7[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m HEAD@{4}: checkout: moving from Proiect3 to main
+[33m148d380[m HEAD@{5}: checkout: moving from main to Proiect3
+[33m0d9a1a7[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m HEAD@{6}: checkout: moving from Proiect3 to main
+[33m148d380[m HEAD@{7}: commit: Navigation Bar
+[33m84f3c88[m HEAD@{8}: commit (initial): First commit on Proiect3
