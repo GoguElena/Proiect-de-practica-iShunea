@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "name": "ecomm-admin",
+=======
+  "name": "cars_showcase",
+>>>>>>> main
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,6 +13,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+<<<<<<< HEAD
     "@clerk/nextjs": "^5.4.1",
     "@hookform/resolvers": "^3.9.0",
     "@prisma/client": "^5.19.1",
@@ -31,15 +36,25 @@
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.23.8",
     "zustand": "^4.5.5"
+=======
+    "@headlessui/react": "^2.1.5",
+    "next": "14.2.8",
+    "react": "^18",
+    "react-dom": "^18"
+>>>>>>> main
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+<<<<<<< HEAD
     "eslint": "^8",
     "eslint-config-next": "14.2.8",
     "postcss": "^8",
     "prisma": "^5.19.1",
+=======
+    "postcss": "^8",
+>>>>>>> main
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   }
