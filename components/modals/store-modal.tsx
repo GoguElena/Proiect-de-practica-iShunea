@@ -1,6 +1,7 @@
 "use client";
 
 import {useState} from "react";
+import axios from "axios";
 import * as z from "zod";
 import { Modal } from "@/components/ui/modal";  // Asigură-te că calea este corectă
 import { useStoreModal } from "@/hooks/use-store-modal";
@@ -16,6 +17,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import toast from "react-hot-toast";
+
 
 
 // Schema formularului
@@ -35,10 +38,21 @@ export const StoreModal = () => {
         }
     });
 
-    const onSubmit = async (values: FormValues) => {
-        console.log(values);
-        // TODO: Create store logic here
+    const onSubmit = async (values: z.infer<typeof formSchema>) => {
+        try {
+            setLoading(true);
+
+            const response = await axios.post('/api/stores', values);
+
+            window.location.assign(`/${response.data.id}`);
+
+        } catch (error) {
+            toast.error("Something went wrong.");
+        } finally {
+            setLoading(false);
+        }
     };
+
 
     return (
         <Modal
