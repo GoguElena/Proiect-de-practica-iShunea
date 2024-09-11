@@ -23,7 +23,7 @@ export async function POST(
         });
         return NextResponse.json(store);
     } catch (error) {
-        console.log('[STORE_POST]', error);
-        return new NextResponse("Inteeral error", { status: 500 });
+        console.log('[STORES_POST]', error);
+        return new NextResponse("Interal error", { status: 500 });
     }
 }
