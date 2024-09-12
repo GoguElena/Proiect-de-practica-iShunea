@@ -23,7 +23,6 @@ import {
 import { Input } from "@/components/ui/input";
 import {useParams, useRouter} from "next/navigation";
 import {AlertModal} from "@/components/modals/alert-modal";
-import {useOrigin} from "@/hooks/use-origin";
 import ImageUpload from "@/components/ui/image-upload";
 
 
@@ -44,7 +43,6 @@ initialData,
 }) => {
     const params = useParams();
     const router =useRouter()
-    const origin = useOrigin();
 
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -69,12 +67,12 @@ initialData,
         try {
             setLoading(true)
             if (initialData) {
-                await axios.patch(`/api/${params.storeId}/billboards/${params.billboardId}`)
+                await axios.patch(`/api/${params.storeId}/billboards/${params.billboardId}`, data)
             } else {
                 await axios.post(`/api/${params.storeId}/billboards`, data)
             }
             router.refresh()
-            //router.push(`/${params.storeId}/billboards`)
+            router.push(`/${params.storeId}/billboards`)
             toast.success(toastMessage)
         } catch (error) {
             toast.error('Something went wrong.')
@@ -88,8 +86,7 @@ initialData,
             setLoading(true)
             await axios.delete(`/api/${params.storeId}/billboards/${params.billboardId}`,)
             router.refresh()
-            //router.push(`/${params.storeId}/billboards`)
-            router.push("/")
+            router.push(`/${params.storeId}/billboards`)
             toast.success('Billboard deleted.')
         } catch (error) {
             toast.error('Make sure you removed all categories using this billboard.')
@@ -167,7 +164,6 @@ initialData,
                     </Button>
                 </form>
             </Form>
-            <Separator/>
         </>
     );
 };
