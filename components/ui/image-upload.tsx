@@ -29,6 +29,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
         onChange(result.info.secure_url);
     }
 
+
     if(!isMounted)
     {
         return null;
@@ -56,6 +57,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
                             className="object-cover"
                             alt="Image"
                             src={url}
+
                         />
 
                     </div>

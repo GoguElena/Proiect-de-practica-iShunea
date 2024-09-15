@@ -3,8 +3,8 @@
 import * as z from "zod";
 import axios from "axios"
 import { useState } from "react";
-import {Color} from '@prisma/client'
 import { Trash } from "lucide-react";
+import {Color} from '@prisma/client'
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
