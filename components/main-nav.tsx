@@ -1,19 +1,23 @@
 "use client";
-import {usePathname} from "next/navigation";
+import React from 'react';
+import { usePathname } from 'next/navigation'
+import {cn} from "@/lib/utils";
 import Link from "next/link";
-
+import {Category} from "@/types";
 interface MainNavProps {
-    data: any
+    data: Category[]
 }
-const MainNav: React.FC<MainNavProps>=({
-    data
-})=>{
-    const pathname = usePathname()
+const MainNav: React.FC<MainNavProps> = ({
+data
+}) => {
+    const pathname = usePathname();
 
     const routes = data.map((route) => ({
         href: `/category/${route.id}`,
         label: route.name,
-        active: pathname === `/category/${route.id}`,
+        // active: pathname === `/category/${route.id}`,
+        active: pathname.startsWith(`/category/${route.id}`)
+
     }))
 
     return (
