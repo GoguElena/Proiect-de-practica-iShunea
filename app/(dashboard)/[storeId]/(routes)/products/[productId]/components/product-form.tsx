@@ -157,6 +157,25 @@ export const ProductForm: React.FC<ProductFormProps> = ({
             <Separator />
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
+                    {/*<FormField*/}
+                    {/*    control={form.control}*/}
+                    {/*    name="images"*/}
+                    {/*    render={({ field }) => (*/}
+                    {/*        <FormItem>*/}
+                    {/*            <FormLabel>Images</FormLabel>*/}
+                    {/*            <FormControl>*/}
+                    {/*                <ImageUpload*/}
+                    {/*                    value={field.value.map((image) => image.url)}*/}
+                    {/*                    disabled={loading}*/}
+                    {/*                    onChange={(url) => field.onChange([...field.value, { url }])}*/}
+                    {/*                    onRemove={(url) => field.onChange([...field.value.filter((current) => current.url !== url)])}*/}
+                    {/*                />*/}
+                    {/*            </FormControl>*/}
+
+                    {/*            <FormMessage />*/}
+                    {/*        </FormItem>*/}
+                    {/*    )}*/}
+                    {/*/>*/}
                     <FormField
                         control={form.control}
                         name="images"
@@ -167,7 +186,13 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                                     <ImageUpload
                                         value={field.value.map((image) => image.url)}
                                         disabled={loading}
-                                        onChange={(url) => field.onChange([...field.value, { url }])}
+                                        onChange={(url) => {
+                                            const currentImages = form.getValues("images");
+                                            const newImage = { url: url };
+                                            const updatedImages = [...currentImages, newImage];
+                                            form.setValue("images", updatedImages, { shouldValidate: true });
+                                            console.log("Updated images:", updatedImages);
+                                        }}
                                         onRemove={(url) => field.onChange([...field.value.filter((current) => current.url !== url)])}
                                     />
                                 </FormControl>
@@ -220,12 +245,16 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                                             defaultValue={field.value}
                                         >
                                             <FormControl>
+                                                {/*<SelectTrigger>*/}
+                                                {/*    <SelectValue*/}
+                                                {/*        defaultValue={field.value}*/}
+                                                {/*        placeholder="Select a category"*/}
+                                                {/*    />*/}
+                                                {/*</SelectTrigger>*/}
                                                 <SelectTrigger>
-                                                    <SelectValue
-                                                        defaultValue={field.value}
-                                                        placeholder="Select a category"
-                                                    />
+                                                    <SelectValue placeholder="Select a category" />
                                                 </SelectTrigger>
+
                                             </FormControl>
                                             <SelectContent>
                                                 {categories.map((category) => (
@@ -258,12 +287,16 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                                             defaultValue={field.value}
                                         >
                                             <FormControl>
+                                                {/*<SelectTrigger>*/}
+                                                {/*    <SelectValue*/}
+                                                {/*        defaultValue={field.value}*/}
+                                                {/*        placeholder="Select a size"*/}
+                                                {/*    />*/}
+                                                {/*</SelectTrigger>*/}
                                                 <SelectTrigger>
-                                                    <SelectValue
-                                                        defaultValue={field.value}
-                                                        placeholder="Select a size"
-                                                    />
+                                                    <SelectValue placeholder="Select a size" />
                                                 </SelectTrigger>
+
                                             </FormControl>
                                             <SelectContent>
                                                 {sizes.map((size) => (
@@ -296,12 +329,16 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                                             defaultValue={field.value}
                                         >
                                             <FormControl>
+                                                {/*<SelectTrigger>*/}
+                                                {/*    <SelectValue*/}
+                                                {/*        defaultValue={field.value}*/}
+                                                {/*        placeholder="Select a color"*/}
+                                                {/*    />*/}
+                                                {/*</SelectTrigger>*/}
                                                 <SelectTrigger>
-                                                    <SelectValue
-                                                        defaultValue={field.value}
-                                                        placeholder="Select a color"
-                                                    />
+                                                    <SelectValue placeholder="Select a color" />
                                                 </SelectTrigger>
+
                                             </FormControl>
                                             <SelectContent>
                                                 {colors.map((color) => (
@@ -326,12 +363,18 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                             render={({ field }) => (
                                 <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
                                     <FormControl>
+                                        {/*<Checkbox*/}
+                                        {/*    checked={field.value}*/}
+                                        {/*    // @ts-ignore*/}
+                                        {/*    onCheckedChange={field.onChange}*/}
+                                        {/*    disabled={loading}*/}
+                                        {/*/>*/}
                                         <Checkbox
                                             checked={field.value}
-                                            // @ts-ignore
-                                            onCheckedChange={field.onChange}
+                                            onCheckedChange={(checked: boolean) => field.onChange(checked)} // Asigură-te că primești un boolean
                                             disabled={loading}
                                         />
+
                                     </FormControl>
                                     <div className="space-y-1 leading-none">
                                         <FormLabel>Featured</FormLabel>
@@ -350,12 +393,18 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                             render={({ field }) => (
                                 <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
                                     <FormControl>
+                                        {/*<Checkbox*/}
+                                        {/*    checked={field.value}*/}
+                                        {/*    // @ts-ignore*/}
+                                        {/*    onCheckedChange={field.onChange}*/}
+                                        {/*    disabled={loading}*/}
+                                        {/*/>*/}
                                         <Checkbox
                                             checked={field.value}
-                                            // @ts-ignore
-                                            onCheckedChange={field.onChange}
+                                            onCheckedChange={(checked: boolean) => field.onChange(checked)} // Asigură-te că primești un boolean
                                             disabled={loading}
                                         />
+
                                     </FormControl>
                                     <div className="space-y-1 leading-none">
                                         <FormLabel>Archived</FormLabel>

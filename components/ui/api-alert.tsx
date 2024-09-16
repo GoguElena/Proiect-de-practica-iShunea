@@ -6,6 +6,7 @@ import {Copy, Server} from "lucide-react";
 import {Alert, AlertDescription, AlertTitle} from "@/components/ui/alert";
 import {BadgeProps,Badge} from "@/components/ui/badge";
 import {Button} from "@/components/ui/button";
+import React from "react";
 
 
 interface ApiAlertProps {
