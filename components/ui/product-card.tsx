@@ -3,7 +3,9 @@ import React from 'react';
 import {Product} from "@/types";
 import IconButton from "@/components/ui/icon-button";
 import { Expand, ShoppingCart} from "lucide-react";
+import Image from 'next/image'
 import Currency from "@/components/ui/currency";
+import {useRouter} from "next/navigation";
 
 interface ProductCard {
     data: Product
@@ -12,16 +14,29 @@ interface ProductCard {
 const ProductCard: React.FC<ProductCard> = ({
     data
 }) => {
+    const router = useRouter()
+    // const previewModal = usePreviewModal()
+    // const cart = useCart()
+
+    const handleClick = () => {
+        router.push(`/product/${data?.id}`)
+    }
     return (
         <div
-            //onClick={handleClick}
+            onClick={handleClick}
             className="bg-white group cursor-pointer rounded-xl border p-3 space-y-4"
         >
             {/*Images and Actions*/}
             <div className="aspect-square rounded-xl bg-gray-100 relative">
+                {/*<Image*/}
+                {/*    alt="Image"*/}
+                {/*    src={data?.images?.[0]?.url}*/}
+                {/*    fill*/}
+                {/*    className="aspect-square object-cover rounded-md"*/}
+                {/*/>*/}
                 <Image
                     alt="Image"
-                    src={data?.images?.[0]?.url}
+                    src={data?.images?.[0]?.url || '/placeholder.png'} // Provide a fallback image or string
                     fill
                     className="aspect-square object-cover rounded-md"
                 />
@@ -33,8 +48,7 @@ const ProductCard: React.FC<ProductCard> = ({
                             icon={<Expand size={20} className="text-gray-600"/>}
                         />
                         <IconButton
-                            onClick={() => {
-                            }}
+                            onClick={() => {}}
                             icon={<ShoppingCart size={24} className="text-gray-600"/>}
                         />
                     </div>
@@ -50,7 +64,8 @@ const ProductCard: React.FC<ProductCard> = ({
             </div>
             {/*Price*/}
             <div className="flex items-center justify-between">
-                <Currency value={data?.price}/>
+                {/*<Currency value={data?.price}/>*/}
+                <Currency value={data?.price ?? 0} />
             </div>
         </div>
     );

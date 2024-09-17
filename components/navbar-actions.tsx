@@ -14,7 +14,7 @@ const NavbarActions = () => {
     }, [])
 
     if (!isMounted) {
-        return null
+        return null;
     }
 
     return (
@@ -23,9 +23,9 @@ const NavbarActions = () => {
                 className="flex items-center rounded-full bg-black px-4 py-2"
                 //onClick={() => router.push('/cart')}
             >
-                <ShoppingBag s
-                     ize={20}
-                     color="white"
+                <ShoppingBag
+                    size={20}
+                    color="white"
                 />
                 <span className="ml-2 text-sm font-medium text-white">
                   0
