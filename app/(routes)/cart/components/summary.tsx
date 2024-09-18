@@ -17,6 +17,7 @@ export const Summary = () => {
         if (searchParams.get('success')) {
             toast.success('Payment completed')
             removeAll()
+            
         }
 
         if (searchParams.get('canceled')) {
