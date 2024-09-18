@@ -5,7 +5,7 @@ import Button from "@/components/ui/button";
 import {Plus, X} from 'lucide-react'
 import {Dialog} from "@headlessui/react";
 import IconButton from "@/components/ui/icon-button";
-import Filter from "@/app/category/[categoryId]/components/filter";
+import Filter from "@/app/(routes)/category/[categoryId]/components/filter";
 
 interface MobileFiltersProps {
     sizes: Size[]

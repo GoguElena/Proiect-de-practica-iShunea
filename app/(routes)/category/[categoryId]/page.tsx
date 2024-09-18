@@ -8,7 +8,7 @@ import Container from "@/components/ui/container";
 import Filter from './components/filter'
 import { NoResults } from '@/components/ui/no-results'
 import ProductCard from '@/components/ui/product-card'
-import MobileFilters from "@/app/category/[categoryId]/mobile-filters";
+import MobileFilters from "@/app/(routes)/category/[categoryId]/components/mobile-filters";
 
 
 export const revalidate = 0
