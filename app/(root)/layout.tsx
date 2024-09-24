@@ -1,34 +1,32 @@
-
-import * as child_process from "child_process";
-
-import {auth} from "@clerk/nextjs/server";
-import {redirect} from "next/navigation";
 import prismadb from "@/lib/prismadb";
+import { auth } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 
 export default async function SetupLayout({
-    children,
-}:{
-    child_process:React.ReactNode;
+                                              children,
+                                          }: {
+    children: React.ReactNode;
 }) {
-    const{userId}=auth()
+    const { userId } = auth();
 
-    if (!userId){
-        redirect('/sign-in');
+    if (!userId) {
+        redirect("/sign-in"); // Corrected URL
     }
 
-    const store = await prismadb.store.findFirst({
-        where:{
-            userId
+
+        // Fetch the store associated with the userId
+        const store = await prismadb.store.findFirst({
+            where: {
+                userId,
+            },
+        });
+
+        if (store) {
+            // Redirect to the store page if it exists
+            redirect(`/${store.id}`);
         }
-    })
 
-    if(store){
-        redirect(`/${store.id}`);
-    }
+        // If no store exists, render the children
+        return <>{children}</>;
 
-    return(
-        <>
-            {children}
-        </>
-    )
 }

@@ -3,23 +3,25 @@
 import { ColumnDef } from "@tanstack/react-table"
 import {CellAction} from "@/app/(dashboard)/[storeId]/(routes)/billboards/components/cell-action";
 
+// This type is used to define the shape of our data.
+// You can use a Zod schema here if you want.
 export type BillboardColumn = {
-    id: string
-    label: string
-    createdAt: string
+    id: string;
+    label: string;
+    createdAt:string;
 }
 
 export const columns: ColumnDef<BillboardColumn>[] = [
     {
-        accessorKey: 'label',
-        header: 'Label',
+        accessorKey: "label",
+        header: "Laebel",
     },
     {
-        accessorKey: 'createdAt',
-        header: 'Date',
+        accessorKey: "createdAt",
+        header: "Data",
     },
     {
-        id:"actions",
-        cell: ({row})=> <CellAction data={row.original}/>
-    }
+        id: "actions",
+        cell:({row})=><CellAction data={row.original}/>,
+    },
 ]

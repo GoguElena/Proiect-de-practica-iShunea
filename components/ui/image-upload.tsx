@@ -14,11 +14,11 @@ interface ImageUploadProps {
     value: string[]
 }
 const ImageUpload: React.FC<ImageUploadProps> = ({
-    disabled,
-    onChange,
-    onRemove,
-    value
-}) => {
+                                                     disabled,
+                                                     onChange,
+                                                     onRemove,
+                                                     value
+                                                 }) => {
     const [isMounted, setIsMounted] = useState(false);
 
     useEffect(() => {
@@ -28,7 +28,6 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
     const onUpload = (result: any) => {
         onChange(result.info.secure_url);
     }
-
 
     if(!isMounted)
     {
@@ -57,7 +56,6 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
                             className="object-cover"
                             alt="Image"
                             src={url}
-
                         />
 
                     </div>
