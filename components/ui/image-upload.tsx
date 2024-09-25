@@ -7,6 +7,7 @@ import Image from "next/image";
 
 import { CldUploadWidget } from "next-cloudinary"
 
+
 interface ImageUploadProps {
     disabled?: boolean;
     onChange: (value: string) => void;
@@ -14,11 +15,11 @@ interface ImageUploadProps {
     value: string[]
 }
 const ImageUpload: React.FC<ImageUploadProps> = ({
-                                                     disabled,
-                                                     onChange,
-                                                     onRemove,
-                                                     value
-                                                 }) => {
+disabled,
+onChange,
+onRemove,
+value
+}) => {
     const [isMounted, setIsMounted] = useState(false);
 
     useEffect(() => {
@@ -62,7 +63,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
                 ))}
             </div>
             <CldUploadWidget
-                onSuccess={onUpload} uploadPreset="da6mp3prw"
+                onSuccess={onUpload} uploadPreset="dthhcs9g"
             >
                 {({ open }) => {
                     const onClick = () => {

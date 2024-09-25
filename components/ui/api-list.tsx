@@ -2,7 +2,7 @@
 
 
 import React from "react";
-import {useParams, useRouter} from "next/navigation";
+import {useParams} from "next/navigation";
 import {useOrigin} from "@/hooks/use-origin";
 import {ApiAlert} from "@/components/ui/api-alert";
 
@@ -13,7 +13,7 @@ interface ApiListProps{
 export const ApiList:React.FC<ApiListProps>=({
     entityName,
     entityIdName,
-                                             })=>{
+})=>{
     const params=useParams();
     const origin=useOrigin();
 

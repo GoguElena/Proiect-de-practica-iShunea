@@ -1,6 +1,5 @@
 import prismadb from "@/lib/prismadb";
 import { auth } from "@clerk/nextjs/server";
-import { tree } from "next/dist/build/templates/app-page";
 import { NextResponse } from "next/server";
 
 export async function GET (
@@ -132,9 +131,9 @@ export async function PATCH (
         })
 
         return NextResponse.json(product);
-    } catch (error) {
-        console.log('[PRODUCT_PATCH]',error);
-        return new NextResponse("Internal error", {status: 500});
+    } catch (error: unknown) {
+        console.log('[PRODUCT_GET]', error);
+        return new NextResponse("Internal error", { status: 500 });
     }
 }
 
