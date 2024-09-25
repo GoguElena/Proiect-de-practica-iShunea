@@ -68,7 +68,7 @@ export default function Home() {
                     <div className="home__filter-container">
                         <CustomFilter title="fuel" options={fuels} setFilter={(value: string) => setFuel(value)}/>
                         <CustomFilter title="year" options={yearsOfProduction}
-                                      setFilter={(value: number) => setYear(Number(value))}/>
+                                      setFilter={(value: string) => setYear(Number(value))}/>
                     </div>
                 </div>
 
