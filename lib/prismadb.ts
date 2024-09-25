@@ -1,9 +1,21 @@
-import {PrismaClient} from "@prisma/client";
+// import {PrismaClient} from "@prisma/client";
+//
+// declare global{
+//     var prisma:PrismaClient|undefined
+// };
+// const prismadb= globalThis.prisma || new PrismaClient();
+// if(process.env.NODE_ENW !== "production") globalThis.prisma= prismadb;
+//
+// export default prismadb;
 
-declare global{
-    var prisma:PrismaClient|undefined
-};
-const prismadb= globalThis.prisma || new PrismaClient();
-if(process.env.NODE_ENW !== "production") globalThis.prisma= prismadb;
+import { PrismaClient } from "@prisma/client";
+
+declare global {
+    const prisma: PrismaClient | undefined; // Change var to const
+}
+
+const prismadb = globalThis.prisma || new PrismaClient();
+
+if (process.env.NODE_ENV !== "production") globalThis.prisma = prismadb;
 
 export default prismadb;
