@@ -16,6 +16,7 @@ export interface SearchManufacturerProps {
 }
 
 export interface CarProps{
+    id: string;
     city_mpg:number;
     carClass:string;
     combination_mpg:number;
