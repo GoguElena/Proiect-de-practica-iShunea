@@ -26,7 +26,13 @@
 // }
 
 import prismadb from "@/lib/prismadb";
-import { Order } from "@prisma/client";
+import { Order, OrderItem } from "@prisma/client";
+
+
+// Define a new type that extends Order to include orderItems
+type OrderWithItems = Order & {
+    orderItems: OrderItem[]; // Include the orderItems relationship
+};
 
 export const getTotalRevenue = async (storeId: string) => {
     const paidOrders = await prismadb.order.findMany({
@@ -43,10 +49,10 @@ export const getTotalRevenue = async (storeId: string) => {
         },
     });
 
-    // Directly return the result of the reduce function
-    return paidOrders.reduce((total: number, order: Order) => {
+    // Cast paidOrders to OrderWithItems[]
+    return (paidOrders as OrderWithItems[]).reduce((total: number, order) => {
         const orderTotal = order.orderItems.reduce((orderSum: number, item) => {
-            return orderSum + item.product.price.toString();
+            return orderSum + item.product.price.toNumber(); // Convert Decimal to number
         }, 0);
         return total + orderTotal;
     }, 0);
