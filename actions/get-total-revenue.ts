@@ -20,7 +20,7 @@ export const getTotalRevenue=async (storeId:string)=>{
     // Calculate the total revenue
     const totalRevenue = paidOrders.reduce((total: number, order: Order) => {
         // Check if orderItems exists and has items
-        if (order.orderItems && order.orderItems.length > 0) {
+        if (order?.orderItems && order?.orderItems.length > 0) {
             const orderTotal = order.orderItems.reduce((orderSum: number, item) => {
                 return orderSum + item.product.price.toNumber();
             }, 0);
