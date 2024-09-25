@@ -1,26 +1,25 @@
 "use client";
+
 import { Fragment, useState } from "react";
 import Image from "next/image";
 import { Listbox, Transition } from "@headlessui/react";
 import { CustomFilterProps } from "@/types";
 
 export default function CustomFilter({ title, options, setFilter }: CustomFilterProps) {
-    const [selected, setSelected] = useState<string | number>(options[0].value); // Store selected value (string or number)
+    const [selected, setSelected] = useState<string>(options[0].value);
 
-    // Handler function for value changes
-    const handleChange = (value: string | number) => {
-        if (value !== selected) { // Ensure the value has actually changed
-            setSelected(value); // Update the selected value
-            setFilter(value); // Update the filter with the new value
+
+
+    const handleChange = (value: string) => {
+        if (value !== selected) {
+            setSelected(value);
+            setFilter(value);
         }
     };
 
     return (
         <div className="w-fit">
-            <Listbox
-                value={selected}
-                onChange={handleChange} // Use the handler function
-            >
+            <Listbox value={selected} onChange={handleChange}>
                 <div className="relative w-fit z-10">
                     <Listbox.Button className="custom-filter__btn">
                         <span className="block truncate">
@@ -47,7 +46,7 @@ export default function CustomFilter({ title, options, setFilter }: CustomFilter
                                     className={({ active }) =>
                                         `relative cursor-default select-none py-2 px-4 ${active ? "bg-primary-blue text-white" : "text-gray-900"}`
                                     }
-                                    value={option.value} // Value should be string or number
+                                    value={option.value}
                                 >
                                     {({ selected }) => (
                                         <span className={`block truncate ${selected ? "font-medium" : "font-normal"}`}>
@@ -63,4 +62,3 @@ export default function CustomFilter({ title, options, setFilter }: CustomFilter
         </div>
     );
 }
-

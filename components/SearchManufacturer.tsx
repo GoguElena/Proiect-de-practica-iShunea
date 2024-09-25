@@ -58,13 +58,13 @@ const SearchManufacturer = ({ selected, setSelected }: SearchManufacturerProps) 
                                     >
                                         {({ selected, active }) => (
                                             <>
-                        <span
-                            className={`block truncate ${
-                                selected ? "font-medium" : "font-normal"
-                            }`}
-                        >
-                            {item}
-                        </span>
+                                                <span
+                                                    className={`block truncate ${
+                                                        selected ? "font-medium" : "font-normal"
+                                                    }`}
+                                                >
+                                                    {item}
+                                                </span>
                                                 {selected ? (
                                                     <span className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
                                                         active ? 'text-white' : 'text-teal-600'
@@ -85,4 +85,3 @@ const SearchManufacturer = ({ selected, setSelected }: SearchManufacturerProps) 
 };
 
 export default SearchManufacturer;
-

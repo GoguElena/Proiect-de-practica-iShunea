@@ -1,4 +1,4 @@
-export const manufacturers = [
+export const manufacturers: string[] = [
     "Acura",
     "Alfa Romeo",
     "Aston Martin",

@@ -1,19 +1,29 @@
 import {CarProps, FilterProps} from "@/types";
 
-export async function fetchCars(filters:FilterProps) {
+export async function fetchCars(filters: FilterProps): Promise<CarProps[] | { message: string }> {
     const { manufacturer, year, model, limit, fuel } = filters;
-    const headers ={
-    'x-rapidapi-key': '6ef56d52a3mshac228fe240f7b21p1ef16djsn9a4504afd4f4',
-    'x-rapidapi-host': 'cars-by-api-ninjas.p.rapidapi.com'
+    const headers = {
+        'x-rapidapi-key': '6ef56d52a3mshac228fe240f7b21p1ef16djsn9a4504afd4f4',
+        'x-rapidapi-host': 'cars-by-api-ninjas.p.rapidapi.com'
+    };
+
+    try {
+        const response = await fetch(`https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?make=${manufacturer}&year=${year}&model=${model}&limit=${limit}&fuel_type=${fuel}`, {
+            headers: headers,
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            return { message: errorData.message || "Failed to fetch cars." };
+        }
+
+        const result = await response.json();
+        return result;
+    } catch (error) {
+        return { message: "An error occurred while fetching cars." };
     }
-
-    const response = await fetch (`https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?make=${manufacturer}&year=${year}&model=${model}&limit=${limit}&fuel_type${fuel}`,{
-        headers: headers,
-    });
-
-    const result = await response.json();
-    return result;
 }
+
 
 export const calculateCarRent = (city_mpg: number, year: number) => {
     const basePricePerDay = 50; // Base rental price per day in dollars
@@ -37,7 +47,7 @@ export const generateCarImageUrl = (car: CarProps, angle?: string) => {
     url.searchParams.append('customer','hrjavascript-mastery');
     url.searchParams.append('make', make);
     url.searchParams.append('modelFamily', model.split('')[0]);
-    url.searchParams.append('zoomType', 'fuulscreen');
+    url.searchParams.append('zoomType', 'fullscreen');
     url.searchParams.append('modelYear', `${year}`);
     url.searchParams.append('angle', `${angle}`);
 

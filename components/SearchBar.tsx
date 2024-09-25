@@ -63,4 +63,3 @@ const SearchBar = ({ setManufacturer, setModel }) => {
 };
 
 export default SearchBar;
-

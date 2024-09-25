@@ -38,14 +38,15 @@ export interface FilterProps{
     model:string;
 }
 
-export interface OptionProps{
-    title:string;
-    value:string;
+export interface OptionProps {
+    title: string;
+    value: string; // Asigură-te că value este de tip string
 }
+
 export interface CustomFilterProps {
     title: string;
     options: OptionProps[];
-    setFilter: (filter: string | number) => void;  // Allow string or number for the filter
+    setFilter: (filter: string) => void;  // Setează tipul la string
 }
 
 export interface ShowMoreProps{

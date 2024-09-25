@@ -1,13 +1,15 @@
-
 "use client";
 import { useEffect, useState } from "react";
 import { CarCard, CustomFilter, Hero, SearchBar, ShowMore } from "@/components";
 import { fetchCars } from "@/utils";
 import { fuels, yearsOfProduction } from "@/constants";
 import Image from "next/image";
+import { CarProps } from "@/types";
+
+type CarResult = CarProps[] | { message: string };
 
 export default function Home() {
-    const [allCars, setAllCars] = useState([]);
+    const [allCars, setAllCars] = useState<CarResult>([]);
     const [loading, setLoading] = useState(false);
 
     // Search states
@@ -33,9 +35,14 @@ export default function Home() {
                 model: model || "",
             });
 
-            setAllCars(result);
+            // Verifică dacă result conține un mesaj de eroare
+            if ('message' in result) {
+                setAllCars(result); // În acest caz, result este un obiect cu mesaj
+            } else {
+                setAllCars(result); // În acest caz, result este un array de mașini
+            }
         } catch (error) {
-            console.log(error);
+            setAllCars({ message: "An error occurred while fetching cars." });
         } finally {
             setLoading(false);
         }
@@ -45,7 +52,7 @@ export default function Home() {
         getCars();
     }, [fuel, year, limit, manufacturer, model]);
 
-    const isDataEmpty = !Array.isArray(allCars) || allCars.length < 1 || !allCars;
+    const isDataEmpty = !Array.isArray(allCars) || allCars.length < 1;
 
     return (
         <main className="overflow-hidden">
@@ -65,7 +72,7 @@ export default function Home() {
                     </div>
                 </div>
 
-                {allCars.length > 0 ? (
+                {Array.isArray(allCars) && allCars.length > 0 ? (
                     <section>
                         <div className='home__cars-wrapper'>
                             {allCars.map((car) => (
@@ -94,7 +101,7 @@ export default function Home() {
                 ) : (
                     <div className="home__error-container">
                         <h2 className="text-black text-xl font-bold">Oops, no results</h2>
-                        <p>[allCars?.message]</p>
+                        <p>{!Array.isArray(allCars) && (allCars as { message: string }).message}</p>
                     </div>
                 )}
             </div>
