@@ -1,8 +1,18 @@
 import { format } from "date-fns";
-
 import prismadb from "@/lib/prismadb";
 import { CategoryClient } from "./components/client";
 import { CategoryColumn } from "./components/columns";
+
+
+// Define an interface for CategoryItem
+interface CategoryItem {
+    id: string;  // Assuming id is a string based on your Prisma schema
+    name: string;
+    billboard: {
+        label: string;
+    };
+    createdAt: Date;  // Use Date type for createdAt
+}
 
 const CategoriesPage = async ({
     params
@@ -21,12 +31,20 @@ const CategoriesPage = async ({
         }
     });
     
-    const formattedCategories: CategoryColumn[] = categories.map(( item ) => ({
+    // const formattedCategories: CategoryColumn[] = categories.map(( item ) => ({
+    //     id: item.id,
+    //     name: item.name,
+    //     billboardLabel: item.billboard.label,
+    //     createdAt: format(item.createdAt, "MMMM do, yyyy")
+    // }))
+
+    // Explicitly type the item parameter
+    const formattedCategories: CategoryColumn[] = categories.map((item: CategoryItem) => ({
         id: item.id,
         name: item.name,
         billboardLabel: item.billboard.label,
         createdAt: format(item.createdAt, "MMMM do, yyyy")
-    }))
+    }));
 
     return (
         <div className="flex-col">
