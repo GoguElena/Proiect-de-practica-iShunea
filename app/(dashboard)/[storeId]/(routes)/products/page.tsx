@@ -6,7 +6,8 @@ import prismadb from "@/lib/prismadb";
 import { ProductClient } from "./components/client";
 import { ProductColumn } from "./components/columns";
 import { formatter } from "@/lib/utils";
-import { Product } from "@prisma/client"; // Import the Product type
+
+//...
 
 
 const ProductsPage = async ({
@@ -28,18 +29,20 @@ const ProductsPage = async ({
         }
     });
     
-    // const formattedProducts: ProductColumn[] = products.map(( item ) => ({
-    const formattedProducts: ProductColumn[] = products.map((item: Product) => ({ // Specify the type for item
+    const formattedProducts: ProductColumn[] = products.map(( item ) => ({
         id: item.id,
         name: item.name,
         isFutured: item.isFutured,
         isArchived: item.isArchived,
         price: formatter.format(item.price.toNumber()),
-        category: item.category.name,
+        category: item.category.name, // Now recognized as part of the type
         size: item.size.name,
         color: item.color.value,
         createdAt: format(item.createdAt, "MMMM do, yyyy")
-    }))
+    }));
+
+
+
 
     return (
         <div className="flex-col">
