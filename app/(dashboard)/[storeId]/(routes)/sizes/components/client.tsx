@@ -40,7 +40,7 @@ export const SizeClient: React.FC<SizesClientProps> = ({
             />
             <Heading title="API" description="API calls for Sizes" />
             <Separator />
-            <ApiList entityName="sizes" entityidName="sizeId"/>
+            <ApiList entityName="sizes" entityIdName="sizeId"/>
         </>
     )
 }

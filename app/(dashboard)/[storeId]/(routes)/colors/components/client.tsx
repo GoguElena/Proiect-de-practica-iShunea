@@ -40,7 +40,7 @@ export const ColorsClient: React.FC<ColorsColumntProps> = ({
             />
             <Heading title="API" description="API calls for Sizes" />
             <Separator />
-            <ApiList entityName="colors" entityidName="colorId"/>
+            <ApiList entityName="colors" entityIdName="colorId"/>
         </>
     )
 }

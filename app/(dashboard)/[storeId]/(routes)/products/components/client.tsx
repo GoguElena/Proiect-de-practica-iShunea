@@ -40,7 +40,7 @@ export const ProductClient: React.FC<ProductClientProps> = ({
             />
             <Heading title="API" description="API calls for Products" />
             <Separator />
-            <ApiList entityName="products" entityidName="productId"/>
+            <ApiList entityName="products" entityIdName="productId"/>
         </>
     )
 }
