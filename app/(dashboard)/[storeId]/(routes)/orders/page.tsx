@@ -4,7 +4,16 @@ import prismadb from "@/lib/prismadb";
 import {OrderClient} from "./components/client";
 import {OrderColumn} from "./components/columns";
 import {formatter} from "@/lib/utils";
-import { Order } from "@prisma/client"; // Importă tipul Order din Prisma
+//..
+import { Order, OrderItem, Product } from "@prisma/client";
+
+//...
+type OrderWithItems = Order & {
+    orderItems: (OrderItem & {
+        product: Product;
+    })[];
+};
+
 
 
 const OrdersPage = async ({
@@ -12,7 +21,8 @@ const OrdersPage = async ({
 }: {
     params: {storeId: string}
 }) => {
-    const orders = await prismadb.order.findMany({
+    // const orders = await prismadb.order.findMany({
+    const orders: OrderWithItems[] = await prismadb.order.findMany({
         where: {
             storeId: params.storeId
         },
@@ -27,30 +37,20 @@ const OrdersPage = async ({
             createdAt: 'desc'
         }
     });
-    
-    // const formattedOrders: OrderColumn[] = orders.map(( item ) => ({
-    //     id: item.id,
-    //     phone: item.phone,
-    //     address:item.address,
-    //     products:item.orderItems.map((orderItem)=> orderItem.product.name).join(', '),
-    //     totalPrice:formatter.format(item.orderItems.reduce((total, item)=>{
-    //         return total+Number(item.product.price)
-    //     },0)),
-    //     isPaid:item.isPaid,
-    //     createdAt: format(item.createdAt, "MMMM do, yyyy")
-    // }))
 
-    const formattedOrders: OrderColumn[] = orders.map((item: Order) => ({
-        id: item.id,
-        phone: item.phone,
-        address: item.address,
+    const formattedOrders: OrderColumn[] = orders.map((item) => ({
+        id: item.id, // Must match Order's id
+        phone: item.phone, // Must match Order's phone
+        address: item.address, // Must match Order's address
         products: item.orderItems.map((orderItem) => orderItem.product.name).join(', '),
-        totalPrice: formatter.format(item.orderItems.reduce((total, item) => {
-            return total + Number(item.product.price);
+        totalPrice: formatter.format(item.orderItems.reduce((total, orderItem) => {
+            return total + Number(orderItem.product.price);
         }, 0)),
-        isPaid: item.isPaid,
-        createdAt: format(item.createdAt, "MMMM do, yyyy")
+        isPaid: item.isPaid, // Must match Order's isPaid
+        createdAt: format(item.createdAt, "MMMM do, yyyy") // Must match Order's createdAt
     }));
+
+
 
     return (
         <div className="flex-col">
