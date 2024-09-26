@@ -40,7 +40,7 @@ export const CategoryClient: React.FC<CategoryClientProps> = ({
             />
             <Heading title="API" description="API calls for Categories" />
             <Separator />
-            <ApiList entityName="categories" entityidName="categoryId"/>
+            <ApiList entityName="categories" entityIdName="categoryId"/>
         </>
     )
 }
