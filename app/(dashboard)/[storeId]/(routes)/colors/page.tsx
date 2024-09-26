@@ -3,6 +3,8 @@ import { format } from "date-fns";
 import prismadb from "@/lib/prismadb";
 import { ColorsClient } from "./components/client";
 import {ColorColumn} from "./components/columns";
+import { Color } from "@prisma/client";  // Importă tipul Color din Prisma
+
 
 const ColorsPage = async ({
     params
@@ -19,12 +21,19 @@ const ColorsPage = async ({
         }
     });
     
-    const formattedColors: ColorColumn[] = colors.map(( item ) => ({
+    // const formattedColors: ColorColumn[] = colors.map(( item ) => ({
+    //     id: item.id,
+    //     name: item.name,
+    //     value: item.value,
+    //     createdAt: format(item.createdAt, "MMMM do, yyyy")
+    // }))
+
+    const formattedColors: ColorColumn[] = colors.map((item: Color) => ({
         id: item.id,
         name: item.name,
         value: item.value,
         createdAt: format(item.createdAt, "MMMM do, yyyy")
-    }))
+    }));
 
     return (
         <div className="flex-col">
