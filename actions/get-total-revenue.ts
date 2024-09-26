@@ -24,14 +24,16 @@
 //     },0)
 //     return totalRevenue;
 // }
-
 import prismadb from "@/lib/prismadb";
-import { Order, OrderItem } from "@prisma/client";
+import { Order, OrderItem, Product } from "@prisma/client";
 
+// Define a new type that extends OrderItem to include the product
+type OrderItemWithProduct = OrderItem & {
+    product: Product; // Include the product relationship
+};
 
-// Define a new type that extends Order to include orderItems
 type OrderWithItems = Order & {
-    orderItems: OrderItem[]; // Include the orderItems relationship
+    orderItems: OrderItemWithProduct[]; // Include the orderItems with product relationship
 };
 
 export const getTotalRevenue = async (storeId: string) => {
@@ -49,11 +51,11 @@ export const getTotalRevenue = async (storeId: string) => {
         },
     });
 
-    // Cast paidOrders to OrderWithItems[]
     return (paidOrders as OrderWithItems[]).reduce((total: number, order) => {
-        const orderTotal = order.orderItems.reduce((orderSum: number, item) => {
+        const orderTotal = order.orderItems.reduce((orderSum: number, item: OrderItemWithProduct) => {
             return orderSum + item.product.price.toNumber(); // Convert Decimal to number
         }, 0);
         return total + orderTotal;
     }, 0);
 };
+
