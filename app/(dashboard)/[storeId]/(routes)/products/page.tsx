@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { format } from "date-fns";
 
 import prismadb from "@/lib/prismadb";
