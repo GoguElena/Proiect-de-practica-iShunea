@@ -4,6 +4,8 @@ import prismadb from "@/lib/prismadb";
 import {OrderClient} from "./components/client";
 import {OrderColumn} from "./components/columns";
 import {formatter} from "@/lib/utils";
+import { Order } from "@prisma/client"; // Importă tipul Order din Prisma
+
 
 const OrdersPage = async ({
     params
@@ -26,17 +28,29 @@ const OrdersPage = async ({
         }
     });
     
-    const formattedOrders: OrderColumn[] = orders.map(( item ) => ({
+    // const formattedOrders: OrderColumn[] = orders.map(( item ) => ({
+    //     id: item.id,
+    //     phone: item.phone,
+    //     address:item.address,
+    //     products:item.orderItems.map((orderItem)=> orderItem.product.name).join(', '),
+    //     totalPrice:formatter.format(item.orderItems.reduce((total, item)=>{
+    //         return total+Number(item.product.price)
+    //     },0)),
+    //     isPaid:item.isPaid,
+    //     createdAt: format(item.createdAt, "MMMM do, yyyy")
+    // }))
+
+    const formattedOrders: OrderColumn[] = orders.map((item: Order) => ({
         id: item.id,
         phone: item.phone,
-        address:item.address,
-        products:item.orderItems.map((orderItem)=> orderItem.product.name).join(', '),
-        totalPrice:formatter.format(item.orderItems.reduce((total, item)=>{
-            return total+Number(item.product.price)
-        },0)),
-        isPaid:item.isPaid,
+        address: item.address,
+        products: item.orderItems.map((orderItem) => orderItem.product.name).join(', '),
+        totalPrice: formatter.format(item.orderItems.reduce((total, item) => {
+            return total + Number(item.product.price);
+        }, 0)),
+        isPaid: item.isPaid,
         createdAt: format(item.createdAt, "MMMM do, yyyy")
-    }))
+    }));
 
     return (
         <div className="flex-col">
