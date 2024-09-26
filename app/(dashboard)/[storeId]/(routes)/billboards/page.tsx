@@ -3,13 +3,25 @@ import { format } from "date-fns";
 import prismadb from "@/lib/prismadb";
 import { BillboardClient } from "./components/client";
 import { BillboardColumn } from "./components/columns";
+import { Billboard } from "@prisma/client"; // Ensure you import the Billboard type
+
 
 const BillboardsPage = async ({
                                   params
                               }: {
     params: {storeId: string}
 }) => {
-    const billboards = await prismadb.billboard.findMany({
+    // const billboards = await prismadb.billboard.findMany({
+    //     where: {
+    //         storeId: params.storeId
+    //     },
+    //     orderBy: {
+    //         createdAt: 'desc'
+    //     }
+    // });
+
+    // Fetch billboards from the database
+    const billboards: Billboard[] = await prismadb.billboard.findMany({
         where: {
             storeId: params.storeId
         },
@@ -18,11 +30,18 @@ const BillboardsPage = async ({
         }
     });
 
-    const formattedBillboards: BillboardColumn[] = billboards.map(( item ) => ({
+    // const formattedBillboards: BillboardColumn[] = billboards.map(( item ) => ({
+    //     id: item.id,
+    //     label: item.label,
+    //     createdAt: format(item.createdAt, "MMMM do, yyyy")
+    // }))
+
+    // Explicitly define the type for 'item' in the map function
+    const formattedBillboards: BillboardColumn[] = billboards.map((item: Billboard) => ({
         id: item.id,
         label: item.label,
         createdAt: format(item.createdAt, "MMMM do, yyyy")
-    }))
+    }));
 
     return (
         <div className="flex-col">
