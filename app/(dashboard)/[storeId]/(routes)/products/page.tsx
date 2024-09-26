@@ -6,16 +6,37 @@ import prismadb from "@/lib/prismadb";
 import { ProductClient } from "./components/client";
 import { ProductColumn } from "./components/columns";
 import { formatter } from "@/lib/utils";
+import { Product, Category, Size, Color } from "@prisma/client"; // Import relevant types
 
-//...
+// Define a custom type for Product with its related models
+interface ProductWithRelations extends Product {
+    category: Category; // Related category
+    size: Size;         // Related size
+    color: Color;       // Related color
+}
 
 
 const ProductsPage = async ({
     params
 }: {
-    params: {storeId: string}
+    params: { storeId: string }
 }) => {
-    const products = await prismadb.product.findMany({
+    // const products = await prismadb.product.findMany({
+    //     where: {
+    //         storeId: params.storeId
+    //     },
+    //     include: {
+    //         category: true,
+    //         size: true,
+    //         color: true,
+    //     },
+    //     orderBy: {
+    //         createdAt: 'desc'
+    //     }
+    // });
+
+    // Fetch products including their related categories, sizes, and colors
+    const products: ProductWithRelations[] = await prismadb.product.findMany({
         where: {
             storeId: params.storeId
         },
@@ -27,22 +48,35 @@ const ProductsPage = async ({
         orderBy: {
             createdAt: 'desc'
         }
-    });
-    
-    const formattedProducts: ProductColumn[] = products.map(( item ) => ({
+    } as const); // Use `as const` for better type inference
+
+
+
+    // const formattedProducts: ProductColumn[] = products.map(( item ) => ({
+    //     id: item.id,
+    //     name: item.name,
+    //     isFutured: item.isFutured,
+    //     isArchived: item.isArchived,
+    //     price: formatter.format(item.price.toNumber()),
+    //     category: item.category.name, // Now recognized as part of the type
+    //     size: item.size.name,
+    //     color: item.color.value,
+    //     createdAt: format(item.createdAt, "MMMM do, yyyy")
+    // }));
+
+
+    // Map the products to the desired format with explicit typing
+    const formattedProducts: ProductColumn[] = products.map((item: ProductWithRelations) => ({
         id: item.id,
         name: item.name,
         isFutured: item.isFutured,
         isArchived: item.isArchived,
         price: formatter.format(item.price.toNumber()),
-        category: item.category.name, // Now recognized as part of the type
+        category: item.category.name,
         size: item.size.name,
         color: item.color.value,
         createdAt: format(item.createdAt, "MMMM do, yyyy")
     }));
-
-
-
 
     return (
         <div className="flex-col">
