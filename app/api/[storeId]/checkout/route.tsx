@@ -3,6 +3,15 @@ import { NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
 import prismadb from "@/lib/prismadb";
 
+// Define the ProductType interface
+interface ProductType {
+    id: string; // or appropriate type
+    name: string;
+    price: {
+        toNumber: () => number; // Method to convert price to number
+    };
+}
+
 // const corsHeaders = {
 //     "Access-Control-Allow-Origin": process.env.FRONTEND_STORE_URL || "http://localhost:3001",
 //     "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
@@ -41,7 +50,8 @@ export async function POST(req: Request, { params }: {params: {storeId: string}}
 
     const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] = [];
 
-    products.forEach((product) => {
+    // products.forEach((product) => {
+    products.forEach((product: ProductType) => { // Specify the product type here
         line_items.push({
             quantity: 1,
             price_data: {
