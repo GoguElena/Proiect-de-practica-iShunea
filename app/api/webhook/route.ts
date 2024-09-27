@@ -5,6 +5,12 @@ import { NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
 import prismadb from "@/lib/prismadb";
 
+// Define the OrderItem interface with necessary properties
+interface OrderItem {
+    productId: string; // Add other properties as needed
+    // Add more properties if required
+}
+
 export async function POST(req:Request) {
     const body = await req.text();
     const signature = headers().get("Stripe-signature") as string;
@@ -65,7 +71,11 @@ export async function POST(req:Request) {
             }
         });
 
-        const productIds = order.orderItems.map((orderItem) => orderItem.productId);
+        // const productIds = order.orderItems.map((orderItem) => orderItem.productId);
+
+        // Map the orderItems using the defined OrderItem type
+        const productIds = order.orderItems.map((orderItem: OrderItem) => orderItem.productId);
+
 
         await prismadb.product.updateMany({
             where: {
