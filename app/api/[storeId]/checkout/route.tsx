@@ -1,7 +1,5 @@
 import Stripe from "stripe";
-
 import { NextResponse } from "next/server";
-
 import { stripe } from "@/lib/stripe";
 import prismadb from "@/lib/prismadb";
 
@@ -29,13 +27,15 @@ export async function OPTIONS() {
 export async function POST(req: Request, { params }: {params: {storeId: string}}) {
     const headers = { ...corsHeaders, "Content-Type": "application/json" };
     const { productIds } = await req.json();
+
     if(!productIds || productIds.length === 0) {
         return new NextResponse("Product ids are required", {status: 400});
     }
 
+    // Fetch products from the database
     const products = await prismadb.product.findMany({
         where: {
-            id: {in: productIds}
+            id: { in: productIds }
         }
     });
 
@@ -51,6 +51,7 @@ export async function POST(req: Request, { params }: {params: {storeId: string}}
             }
         });
     });
+
 
 
     const order = await prismadb.order.create({
@@ -79,6 +80,7 @@ export async function POST(req: Request, { params }: {params: {storeId: string}}
     //     cancel_url: `${process.env.FRONTEND_STORE_URL}/cart?canceled=1`,
     //     metadata: {orderId: order.id}
     // });
+
     try {
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'], // Add this line
