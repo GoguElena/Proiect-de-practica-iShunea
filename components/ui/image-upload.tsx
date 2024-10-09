@@ -25,10 +25,12 @@ value
         setIsMounted(true);
     }, [])
 
-    const onUpload = (result: unknown) => {
+    // const onUpload = (result: unknown) => {
+    //     onChange(result.info.secure_url);
+    // }
+    const onUpload = (result: { info: { secure_url: string } }) => {
         onChange(result.info.secure_url);
     }
-
 
 
     if(!isMounted) {
