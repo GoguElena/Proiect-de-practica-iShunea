@@ -13,6 +13,13 @@ interface ImageUploadProps {
     onRemove: (value: string) => void;
     value: string[]
 }
+
+// Definește tipul pentru rezultatul încărcării Cloudinary
+interface CloudinaryUploadWidgetResult {
+    info: {
+        secure_url: string;
+    };
+}
 const ImageUpload: React.FC<ImageUploadProps> = ({
 disabled,
 onChange,
@@ -28,9 +35,10 @@ value
     // const onUpload = (result: unknown) => {
     //     onChange(result.info.secure_url);
     // }
-    const onUpload = (result: { info: { secure_url: string } }) => {
+    // Actualizează tipul pentru 'result'
+    const onUpload = (result: CloudinaryUploadWidgetResult) => {
         onChange(result.info.secure_url);
-    }
+    };
 
 
     if(!isMounted) {
