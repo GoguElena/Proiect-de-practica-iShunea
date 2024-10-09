@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ImagePlus, Trash } from "lucide-react";
 import Image from "next/image";
-
 import { CldUploadWidget } from "next-cloudinary"
+
 
 interface ImageUploadProps {
     disabled?: boolean;
@@ -13,6 +13,7 @@ interface ImageUploadProps {
     onRemove: (value: string) => void;
     value: string[]
 }
+
 const ImageUpload: React.FC<ImageUploadProps> = ({
                                                      disabled,
                                                      onChange,
@@ -24,13 +25,20 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
     useEffect(() => {
         setIsMounted(true);
     }, [])
+
+    // const onUpload = (result: unknown) => {
+    //     onChange(result.info.secure_url);
+    // }
+
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const onUpload = (result: any) => {
         onChange(result.info.secure_url);
-    }
+    };
 
-    if(!isMounted)
-    {
+
+
+
+    if(!isMounted) {
         return null;
     }
 
