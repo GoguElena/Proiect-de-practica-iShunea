@@ -6,6 +6,13 @@ import { ImagePlus, Trash } from "lucide-react";
 import Image from "next/image";
 import { CldUploadWidget } from "next-cloudinary"
 
+// Define the type for the result returned by Cloudinary's upload widget
+interface CloudinaryUploadResult {
+    event: string;
+    info: {
+        secure_url: string;
+    };
+}
 
 interface ImageUploadProps {
     disabled?: boolean;
@@ -29,9 +36,15 @@ value
     // const onUpload = (result: unknown) => {
     //     onChange(result.info.secure_url);
     // }
-    const onUpload = (result: any) => {
-        onChange(result.info.secure_url);
-    }
+    const onUpload = (result: CloudinaryUploadResult) => {
+        // Ensure that result.info and result.info.secure_url are defined
+        if (result.info && typeof result.info.secure_url === "string") {
+            onChange(result.info.secure_url);
+        } else {
+            console.error("Upload failed: secure_url not found in result", result);
+        }
+    };
+
 
 
     if(!isMounted) {
